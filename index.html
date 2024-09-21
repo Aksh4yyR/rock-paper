@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <title>Rock Paper Scissors Game</title>
+</head>
+<body>
+  <div class="main-container">
+    <div class="game-header">
+      <h1>Rock Paper Scissors</h1>
+    </div>
+
+    <div class="game-body">
+     
+      <div class="scoreboard">
+        <div id="userScore" class="score-box">User: 0</div>
+        <div id="botScore" class="score-box">Bot: 0</div>
+      </div>
+
+     
+      <div class="game-buttons">
+        <button onclick="Rockpapper('Rock')" class="action-btn"><i class="fa-solid fa-mountain"></i> Rock</button>
+        <button onclick="Rockpapper('Papper')" class="action-btn"><i class="fa-solid fa-newspaper fa-2xl"></i> Paper</button>
+        <button onclick="Rockpapper('Scissors')" class="action-btn"><i class="fa-solid fa-scissors fa-2xl"></i> Scissors</button>
+      </div>
+
+     
+      <div class="result-section">
+        <div id="result" class="result-display"></div>
+        <div id="res" class="result-message"></div>
+        <div id="wres" class="result-message won-message"></div>
+      </div>
+    </div>
+  </div>
+
+  <script >
+  let userScore = 0;
+    let botScore = 0;
+    
+    function Rockpapper(Choice) {
+      const myChoice = ['Rock', 'Papper', 'Scissors'];
+      const botChoice = myChoice[Math.floor(Math.random() * myChoice.length)];
+    
+      let result = '';
+      let wres = '';
+    
+      if (Choice === botChoice) {
+        result = `It's a Draw!`;
+      } else if (
+        (Choice === 'Rock' && botChoice === 'Scissors') ||
+        (Choice === 'Scissors' && botChoice === 'Papper') ||
+        (Choice === 'Papper' && botChoice === 'Rock')
+      ) {
+        wres = `You Won!`;
+        userScore++;
+      } else {
+        result = `Bot Wins!`;
+        botScore++;
+      }
+    
+    
+      document.getElementById('userScore').innerHTML = `User: ${userScore}`;
+      document.getElementById('botScore').innerHTML = `Bot: ${botScore}`;
+    
+    
+      document.getElementById('result').innerHTML = `You chose ${Choice}, Bot chose ${botChoice}`;
+      document.getElementById('res').innerHTML = result;
+      document.getElementById('wres').innerHTML = wres;
+    
+    
+      if (userScore === 5 || botScore === 5) {
+        setTimeout(() => {
+          alert(userScore === 5 ? 'Congratulations! You won the game!' : 'Game Over! The bot won.');
+          resetGame();
+        }, 100);
+      }
+    }
+    
+    function resetGame() {
+      userScore = 0;
+      botScore = 0;
+      document.getElementById('userScore').innerHTML = `User: 0`;
+      document.getElementById('botScore').innerHTML = `Bot: 0`;
+      document.getElementById('result').innerHTML = '';
+      document.getElementById('res').innerHTML = '';
+      document.getElementById('wres').innerHTML = '';
+    }
+    </script>
+</body>
+</html>
